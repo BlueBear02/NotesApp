@@ -12,7 +12,8 @@ Base = declarative_base()
 
 class Note(Base):
     __tablename__ = "notes"
-    
+    __table_args__ = {'sqlite_autoincrement': True}
+
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(200), nullable=False)
     content = Column(Text, nullable=False)
