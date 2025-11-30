@@ -28,7 +28,8 @@ def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db),
         title=note.title,
         content=note.content,
         category=note.category,
-        is_favourite=note.is_favourite
+        is_favourite=note.is_favourite,
+        is_hidden=note.is_hidden
     )
 
 
@@ -63,7 +64,8 @@ def update_note(note_id: int, note: schemas.NoteUpdate,
         title=note.title,
         content=note.content,
         category=note.category,
-        is_favourite=note.is_favourite
+        is_favourite=note.is_favourite,
+        is_hidden=note.is_hidden
     )
     if db_note is None:
         raise HTTPException(status_code=404, detail="Note not found")

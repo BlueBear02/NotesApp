@@ -19,6 +19,7 @@ class Note(Base):
     content = Column(Text, nullable=False)
     category = Column(String(100), nullable=True)
     is_favourite = Column(Boolean, default=False)
+    is_hidden = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

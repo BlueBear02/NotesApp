@@ -40,12 +40,14 @@ def get_note(db: Session, note_id: int):
     return db.query(Note).filter(Note.id == note_id).first()
 
 def create_note(db: Session, title: str, content: str,
-                category: str = None, is_favourite: bool = False):
+                category: str = None, is_favourite: bool = False,
+                is_hidden: bool = False):
     db_note = Note(
         title=title,
         content=content,
         category=category,
-        is_favourite=is_favourite
+        is_favourite=is_favourite,
+        is_hidden=is_hidden
     )
     db.add(db_note)
     db.commit()
@@ -54,7 +56,7 @@ def create_note(db: Session, title: str, content: str,
 
 def update_note(db: Session, note_id: int, title: str = None,
                 content: str = None, category: str = None,
-                is_favourite: bool = None):
+                is_favourite: bool = None, is_hidden: bool = None):
     db_note = db.query(Note).filter(Note.id == note_id).first()
     if db_note:
         if title is not None:
@@ -65,6 +67,8 @@ def update_note(db: Session, note_id: int, title: str = None,
             db_note.category = category
         if is_favourite is not None:
             db_note.is_favourite = is_favourite
+        if is_hidden is not None:
+            db_note.is_hidden = is_hidden
         db_note.updated_at = datetime.utcnow()
         db.commit()
         db.refresh(db_note)
