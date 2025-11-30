@@ -20,7 +20,7 @@ def verify_api_key(x_api_key: str = Header()):
 
 @app.post("/notes")
 def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db), api_key: str = Depends(verify_api_key)):
-    return crud.create_note(db=db, title=note.title, content=note.content)
+    return crud.create_note(db=db, title=note.title, content=note.content, is_hidden=note.is_hidden)
 
 
 @app.get("/notes")
@@ -38,7 +38,7 @@ def get_note(note_id: int, db: Session = Depends(get_db), api_key: str = Depends
 
 @app.put("/notes/{note_id}")
 def update_note(note_id: int, note: schemas.NoteUpdate, db: Session = Depends(get_db), api_key: str = Depends(verify_api_key)):
-    db_note = crud.update_note(db, note_id=note_id, title=note.title, content=note.content)
+    db_note = crud.update_note(db, note_id=note_id, title=note.title, content=note.content, is_hidden=note.is_hidden)
     if db_note is None:
         raise HTTPException(status_code=404, detail="Note not found")
     return db_note

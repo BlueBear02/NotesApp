@@ -8,20 +8,22 @@ def get_notes(db: Session, skip: int = 0, limit: int = 100):
 def get_note(db: Session, note_id: int):
     return db.query(Note).filter(Note.id == note_id).first()
 
-def create_note(db: Session, title: str, content: str):
-    db_note = Note(title=title, content=content)
+def create_note(db: Session, title: str, content: str, is_hidden: bool = False):
+    db_note = Note(title=title, content=content, is_hidden=is_hidden)
     db.add(db_note)
     db.commit()
     db.refresh(db_note)
     return db_note
 
-def update_note(db: Session, note_id: int, title: str = None, content: str = None):
+def update_note(db: Session, note_id: int, title: str = None, content: str = None, is_hidden: bool = None):
     db_note = db.query(Note).filter(Note.id == note_id).first()
     if db_note:
         if title is not None:
             db_note.title = title
         if content is not None:
             db_note.content = content
+        if is_hidden is not None:
+            db_note.is_hidden = is_hidden
         db_note.updated_at = datetime.utcnow()
         db.commit()
         db.refresh(db_note)
