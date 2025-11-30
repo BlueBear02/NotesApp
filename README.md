@@ -2,7 +2,7 @@
 
 Simple backend for a notes app (fastapi + sqlite)
 
-**Frontend:** https://github.com/BlueBear02/NotepadApp
+**Frontend:** https://github.com/BlueBear02/NotesFrontend
 
 ## Setup
 
