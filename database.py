@@ -17,7 +17,8 @@ class Note(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(200), nullable=False)
     content = Column(Text, nullable=False)
-    is_hidden = Column(Boolean, default=False, nullable=False)
+    category = Column(String(100), nullable=True)
+    is_favourite = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

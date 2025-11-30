@@ -4,9 +4,11 @@ from typing import Optional
 class NoteCreate(BaseModel):
     title: str = ""
     content: str = ""
-    is_hidden: bool = False
+    category: Optional[str] = None
+    is_favourite: bool = False
 
 class NoteUpdate(BaseModel):
     title: Optional[str] = None
     content: Optional[str] = None
-    is_hidden: Optional[bool] = None
+    category: Optional[str] = None
+    is_favourite: Optional[bool] = None
